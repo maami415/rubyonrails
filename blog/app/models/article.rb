@@ -1,4 +1,6 @@
 class Article < ApplicationRecord
+    include Visible
+
     has_many :comments # 関連付けるモデルの指定
   
     validates :title, presence: true # titleが存在するか検証
