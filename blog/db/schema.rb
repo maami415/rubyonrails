@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_18_013805) do
-  create_table "article_search_tags", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2022_11_22_101228) do
+  create_table "article_tags", force: :cascade do |t|
     t.integer "article_id", null: false
-    t.integer "search_tag_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index "\"aricle_id\", \"search_tag_id\"", name: "index_article_search_tags_on_aricle_id_and_search_tag_id", unique: true
-    t.index ["article_id"], name: "index_article_search_tags_on_article_id"
-    t.index ["search_tag_id"], name: "index_article_search_tags_on_search_tag_id"
+    t.index ["article_id"], name: "index_article_tags_on_article_id"
+    t.index ["tag_id"], name: "index_article_tags_on_tag_id"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -39,13 +38,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_013805) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
-  create_table "search_tags", force: :cascade do |t|
-    t.string "name"
+  create_table "tags", force: :cascade do |t|
+    t.string "tag_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "article_search_tags", "articles"
-  add_foreign_key "article_search_tags", "search_tags"
+  add_foreign_key "article_tags", "articles"
+  add_foreign_key "article_tags", "tags"
   add_foreign_key "comments", "articles"
 end
