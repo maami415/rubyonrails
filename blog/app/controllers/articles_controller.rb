@@ -13,11 +13,12 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @tag_list = @article.tags.pluck(:tag_name).join(", ")
   end
 
   def create
     @article = Article.new(article_params)
-    tag_list = params[:article][:tag_names].split(",")
+    tag_list = params[:article][:tag_names].gsub(" ", "").split(",")
     @article.tags_save(tag_list) 
 
     if @article.save
@@ -29,11 +30,12 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
+    @tag_list = @article.tags.pluck(:tag_name).join(", ")
   end
 
   def update
     @article = Article.find(params[:id])
-    tag_list = params[:article][:tag_names].split(",")
+    tag_list = params[:article][:tag_names].gsub(" ", "").split(",")
     @article.tags_save(tag_list) 
 
     if @article.update(article_params)
