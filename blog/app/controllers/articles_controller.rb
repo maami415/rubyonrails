@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    @tag_list = @article.tags
+    @tag_list = @article.tags.pluck(:tag_name).join(", ")
   end
 
   def new
@@ -33,6 +33,8 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
+    tag_list = params[:article][:tag_names].split(",")
+    @article.tags_save(tag_list) 
 
     if @article.update(article_params)
       redirect_to @article
