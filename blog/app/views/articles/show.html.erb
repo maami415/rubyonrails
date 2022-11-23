@@ -1,4 +1,8 @@
 <h1><%= @article.title %></h1>
+tag:
+<% @tag_list.each do |tag| %>
+<%= tag.tag_name %>
+<% end %>
 <p><%= @article.body %></p>
 
 <ul>
